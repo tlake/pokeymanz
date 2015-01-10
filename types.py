@@ -1,22 +1,28 @@
-def Type(object):
+class PokeType(object):
     pass
 
 
 
-def Fire(Type):
+class Fire(PokeType):
 
-    def __init__(self):
-        self.type = "Fire"
-
-
-
-def Grass(Type):
-
-    def __init__(self):
-        self.type = "Grass"
+    poke_type = ["Fire"]
+    strengths = ["Grass"]
+    weaknesses = ["Water"]
 
 
 
-def Water(Type):
+class Grass(PokeType):
 
-    def __init__(self):
+    poke_type = ["Grass"]
+    strengths = ["Water"]
+    weaknessess = ["Fire"]
+
+
+
+class Water(PokeType):
+
+    poke_type = ["Water"]
+
+
+
+
