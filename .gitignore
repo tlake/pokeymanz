@@ -1,0 +1,2 @@
+# ignore all virtualenv stuff (contained in env/)
+env/*
