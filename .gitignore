@@ -1,2 +1,8 @@
 # ignore all virtualenv stuff (contained in env/)
 env/*
+
+# ignore all undo files made by vim
+*.un~
+
+# ignore swap
+*.swp

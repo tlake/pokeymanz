@@ -1,22 +1,14 @@
-def Type(object):
-    pass
-
-
-
-def Fire(Type):
-
-    def __init__(self):
-        self.type = "Fire"
-
-
-
-def Grass(Type):
-
-    def __init__(self):
-        self.type = "Grass"
-
-
-
-def Water(Type):
-
-    def __init__(self):
+type_chart = {
+    "Fire": {
+        "Str": ["Grass"],
+        "Wea": ["Water"]
+        }
+    "Grass": {
+        "Str": ["Water"],
+        "Wea": ["Fire"]
+        }
+    "Water": {
+        "Str": ["Fire"],
+        "Wea": ["Grass"]
+        }
+}

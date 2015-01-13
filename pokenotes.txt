@@ -1,0 +1,10 @@
+Let's see if writing out things that I need from this program will work.
+
+POKEYMANZ
+Each pokeyman has a type, a level progression, an XP gauge, a list of stats (atk, spatk, def, spdef, spd, hp), a rarity. Each type has a list of strengths and weaknesses. Each pokeyman has a set of four moves they can know. Each move has a power, an accuracy, a type, and a PP. Each move should come from a list of all moves. 
+
+THE WORLD
+The world will be made up of different scenes. Each scene will need to display the scene name, a list of the objects in the scene (like a pokeycenter, a ball shop, tall grass, water, trainers, other characters, etc.) Each scene needs to be able to connect to the scenes around it.
+
+BATTLES
+A pokeybattle 
