@@ -8,10 +8,10 @@ beginning_town = {
         this town!\n\nOf import to you, dear player, are your own home, a \
         pokeycenter, an item shop, and the northern exit to Route 1.",
     "Exits": {
-        "Home": scenes.player_home,
-        "Pokeycenter": scenes.pokeycenter,
-        "Item Shop": scenes.item_shop,
-        "Route 1": scenes.route_1a
+        "Home": "scenes.player_home",
+        "Pokeycenter": "scenes.pokeycenter",
+        "Item Shop": "scenes.item_shop",
+        "Route 1": "scenes.route_1a"
         }
 }
 
@@ -22,10 +22,10 @@ player_home = {
         recent pokeyman-related gaming systems is. Your mom's also hanging around, \
         doing mom things that you're probably too young to understand.",
     "Exits": {
-        "Outside": last_scene
+        "Outside": "scenes.beginning_town"
         },
     "People": {
-        "Mom": people.mom
+        "Mom": "people.mom"
         }
 }
 
@@ -40,13 +40,13 @@ pokeycenter = {
         uncountable clones created by some shadow-science organization for the \
         sole purpose of staffing pokeyman centers. Creepy.",
     "Exits": {
-        "Outside": last_scene
+        "Outside": "game_data['last_scene']"
         },
     "People": {
-        "Nurse": people.pokeycenter_nurse
+        "Nurse": "people.pokeycenter_nurse"
         },
     "Objects": {
-        "PC": objects.pokeyman_computer
+        "PC": "objects.pokeyman_computer"
         }
 }
 
@@ -58,10 +58,10 @@ item_shop = {
         prominently in the center of the store. To one side of the room is the \
         cash register and checkout desk, attended by a nondescript man.",
     "Exits": {
-        "Outside": last_scene
+        "Outside": "game_data['last_scene']"
         },
     "People": {
-        "Clerk": people.item_shop_clerk
+        "Clerk": "people.item_shop_clerk"
         }
 }
 
@@ -75,7 +75,7 @@ route_1a = {
         rustle with the doings and goings-on and hip-happenings of pokeymanz. \
         You could probably HUNT in the GRASS for a wild pokeyman if you wanted.",
     "Exits": {
-        "Beginning Town": scenes.beginning_town
+        "Beginning Town": "scenes.beginning_town"
         },
     "Hunts": {
         "Grass": {

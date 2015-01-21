@@ -5,11 +5,11 @@ This is the primary file for the Pokeymanz game.
 ### Importing ###
 
 ''' Pokeyman modules '''
-from moves import *
-from people import *
-from pokeytypes import *
-from pokeymanz import *
-# from scenes import *
+import moves
+import people
+import pokeytypes
+import pokeymanz
+import scenes
 
 ''' Python modules '''
 import time
@@ -51,10 +51,33 @@ def load_game():
 
 
 
+### Game functions ###
+### End game functions ###
+
+
+
 ### game_loop(): The primary game loop ###
 
 def game_loop():
-    pass
+
+    global game_data
+
+    while True:
+        options = ['look', 'menu', 'go', 'talk', 'use', 'hunt']
+
+        choice = input("\n\n> ")
+
+        if choice.lower() not in options:
+            print("Sorry, that doesn't seem to be a valid option.")
+
+'''
+NOTE:
+    Need to figure out how to connect game_data values to values in other modules
+'''
+        elif choice.lower() == 'look':
+            scene = game_data['current_scene']
+            print((game_data['current_scene'])["Description"])
+
 
 ### End game_loop(): The primary game loop ###
 
@@ -66,32 +89,42 @@ def new_game():
 
     global game_data
 
-    def interactor(message):
+    def ng_interactor(message):
         os.system('clear')
         print("\n\n" + message)
         return input("\n> ")
 
-    interactor("Welcome to the wonderful and exciting world of Pokeymanz!")
-    interactor("I'm Harold Treebranch, the Loco region's very own " \
+    ng_interactor("Welcome to the wonderful and exciting world of Pokeymanz!")
+    ng_interactor("I'm Harold Treebranch, the Loco region's very own " \
             + "Pokeyman professor!")
-    interactor("Our world is inhabited by fantastical creatures known " \
+    ng_interactor("Our world is inhabited by fantastical creatures known " \
             + "as Pokeymanz!")
-    interactor("You're gonna be going on a grand adventure momentarily!")
-    interactor("But first, let's take care of some housekeeping.")
+    ng_interactor("You're gonna be going on a grand adventure momentarily!")
+    ng_interactor("But first, let's take care of some housekeeping.")
 
     # Get player's name, double-check with them
     name = ''
     check = ''
 
-    while check != 'y':
-        name = interactor("What's your name?")
-        check = interactor(name + "? Is that right?\n\n(y/n)")
-        if check.lower() != 'y':
-            interactor("Let's try again.")
+    while check.lower() not in ['y', 'yes']:
+        name = ng_interactor("What's your name?")
+        check = ng_interactor(name + "? Is that right?\n\n(y/n)")
+        if check.lower() not in ['y', 'yes']:
+            ng_interactor("Let's try again.")
 
     game_data['player_name'] = name
 
-    print(game_data['player_name'])
+    # End getting player's name #
+
+    ng_interactor("That... sure is something that you could call yourself.")
+    ng_interactor("But enough! Your Pokeyman adventure begins now!")
+
+    game_data['party'] = []
+    game_data['current_scene'] = "scenes.beginning_town"
+
+    print("Current status of game_data: ", game_data)
+
+    game_loop()
 
 ### End new_game() ###
 
@@ -107,7 +140,8 @@ def main():
     print("LICENSE:")
     print("Whatever won't get me sued by Nintendo, Gamefreak, or anybody else.")
     print("I'm not making this for any financial gain.")
-    print("It's just a means for learning how to write code.\n")
+    print("It's just a means for learning how to write code.\n\n\n")
+    print("(press ENTER to continue)\n")
     input("> ")
 
     ''' Check for existence of SAVE_FILE. '''
