@@ -15,6 +15,7 @@ import scenes
 import time
 import os
 import pickle
+import textwrap
 
 ### End importing ###
 
@@ -51,7 +52,57 @@ def load_game():
 
 
 
+### Game utilities ###
+
+''' Modified print statement: '''
+def display(message):
+    print(textwrap.fill(message))
+
+
+def main_screen_handler(title, body, prompt_msg):
+    print("\n\n" + title + "\n")
+    display(body)
+    print()
+    print(prompt_msg)
+
+
+### End game utilities ###
+
+
+
 ### Game functions ###
+
+def look():
+    main_screen_handler(
+            game_data['current_scene']['Name'],
+            game_data['current_scene']['Description'],
+            'Command?'
+            )
+
+
+def menu():
+    display("Menu function")
+
+
+def go():
+    display("Go function")
+
+
+def talk():
+    display("Talk function")
+
+
+def use():
+    display("Use function")
+
+
+def hunt():
+    display("Hunt function")
+
+
+def show_help():
+    display("Help function")
+
 ### End game functions ###
 
 
@@ -63,21 +114,26 @@ def game_loop():
     global game_data
 
     while True:
-        options = ['look', 'menu', 'go', 'talk', 'use', 'hunt']
+        options = ['look', 'menu', 'go', 'talk', 'use', 'hunt', 'help']
 
-        choice = input("\n\n> ")
+        choice = input("\n> ")
 
         if choice.lower() not in options:
-            print("Sorry, that doesn't seem to be a valid option.")
-
-'''
-NOTE:
-    Need to figure out how to connect game_data values to values in other modules
-'''
+            display("Sorry, that doesn't seem to be a valid option.")
         elif choice.lower() == 'look':
-            scene = game_data['current_scene']
-            print((game_data['current_scene'])["Description"])
-
+            look()
+        elif choice.lower() == 'menu':
+            menu()
+        elif choice.lower() == 'go':
+            go()
+        elif choice.lower() == 'talk':
+            talk()
+        elif choice.lower() == 'use':
+            talk()
+        elif choice.lower() == 'hunt':
+            hunt()
+        elif choice.lower() == 'help':
+            show_help()
 
 ### End game_loop(): The primary game loop ###
 
@@ -91,7 +147,7 @@ def new_game():
 
     def ng_interactor(message):
         os.system('clear')
-        print("\n\n" + message)
+        display("\n\n" + message)
         return input("\n> ")
 
     ng_interactor("Welcome to the wonderful and exciting world of Pokeymanz!")
@@ -120,9 +176,11 @@ def new_game():
     ng_interactor("But enough! Your Pokeyman adventure begins now!")
 
     game_data['party'] = []
-    game_data['current_scene'] = "scenes.beginning_town"
+    game_data['current_scene'] = scenes.beginning_town
 
-    print("Current status of game_data: ", game_data)
+    display("Curent status of game_data: " + str(game_data))
+
+    look()
 
     game_loop()
 

@@ -1,12 +1,12 @@
 beginning_town = {
     "Name": "Beginning Town",
-    "Description": "The air in this tiny little hamlet is clean and fresh. It \
-        smells of new beginnings! Which is appropriate, since this is the town \
-        whence your journey (an incredible one, to be sure, and not just like \
-        everybody else who's ever played any kind of pokeyman game) begins! There \
-        is grass! There are houses! There are ostensibly other people living in \
-        this town!\n\nOf import to you, dear player, are your own home, a \
-        pokeycenter, an item shop, and the northern exit to Route 1.",
+    "Description": "The air in this tiny little hamlet is clean and fresh. It " \
+        "smells of new beginnings! Which is appropriate, since this is the town "  \
+        "whence your journey (an incredible one, to be sure, and not just like " \
+        "everybody else who's ever played any kind of pokeyman game) begins! " \
+        "There is grass! There are houses! There are ostensibly other people " \
+        "living in this town!\n\nOf import to you, dear player, are your own " \
+        "home, a pokeycenter, an item shop, and the northern exit to Route 1.",
     "Exits": {
         "Home": "scenes.player_home",
         "Pokeycenter": "scenes.pokeycenter",

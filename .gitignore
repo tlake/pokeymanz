@@ -6,3 +6,6 @@ env/*
 
 # ignore swap
 *.swp
+
+# ignore the __pychache__ folder
+__pycache__
