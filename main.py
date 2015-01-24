@@ -59,11 +59,17 @@ def display(message):
     print(textwrap.fill(message))
 
 
+
 def main_screen_handler(title, body, prompt_msg):
     print("\n\n" + title + "\n")
     display(body)
-    print()
-    print(prompt_msg)
+    print('\n' + prompt_msg + ' ')
+
+
+
+def small_handler(title, prompt_msg):
+    print("\n\n" + title + "\n")
+    print(prompt_msg + ' ')
 
 
 ### End game utilities ###
@@ -74,30 +80,94 @@ def main_screen_handler(title, body, prompt_msg):
 
 def look():
     main_screen_handler(
-            game_data['current_scene']['Name'],
-            game_data['current_scene']['Description'],
-            'Command?'
-            )
+        scenes.db[game_data['current_scene']]['name'],
+        scenes.db[game_data['current_scene']]['desc'],
+        'Command?'
+        )
 
 
 def menu():
-    display("Menu function")
+    print("\n\nMENU:\n")
+
+    options = ["PARTY", "SAVE", "QUIT", "CANCEL"]
+
+    choice = ''
+
+    while choice.upper() not in options:
+        for each in options:
+            print(each)
+
+        choice = input("\n> ")
+
+        if choice.upper() not in options:
+            display("Please enter a valid option.")
+
+        # PARTY
+        if choice.upper() == "PARTY":
+            display("Party options to go here.")
+
+        # SAVE
+        elif choice.upper() == "SAVE":
+            save_conf = ''
+
+            save_opts = ['y', 'n']
+
+            while save_conf.lower() not in save_opts:
+                display("Saving will overwrite any previously saved game. Continue?")
+                print("\n(y/n)")
+                save_conf = input("\n> ")
+
+                if save_conf not in save_opts:
+                    display("Please select a valid option.")
+            
+            if save_conf.lower() == 'y':
+                display("NOW SAVING. DO NOT INTERRUPT PROCESS.")
+
+                save_game()
+
+                display("Save complete!")
+
+        # QUIT
+        elif choice.upper() == "QUIT":
+            quit_conf = ''
+
+            quit_opts = ['y', 'n']
+
+            while quit_conf.lower() not in quit_opts:
+                display("Really quit? All unsaved data will be lost.")
+                print("\n(y/n)")
+                quit_conf = input("\n> ")
+
+                if quit_conf not in quit_opts:
+                    display("Please select a valid option.")
+
+                if quit_conf.lower() == 'y':
+                    exit(0)
+
+        # CANCEL
+        elif choice.upper() == "CANCEL":
+            pass
+
 
 
 def go():
     display("Go function")
 
 
+
 def talk():
     display("Talk function")
+
 
 
 def use():
     display("Use function")
 
 
+
 def hunt():
     display("Hunt function")
+
 
 
 def show_help():
@@ -113,27 +183,41 @@ def game_loop():
 
     global game_data
 
+    hud = ()
+
     while True:
-        options = ['look', 'menu', 'go', 'talk', 'use', 'hunt', 'help']
+        options = ['look', 'menu', 'go', 'talk', 'use', 'hunt', 'help', 'quit']
 
         choice = input("\n> ")
 
         if choice.lower() not in options:
             display("Sorry, that doesn't seem to be a valid option.")
+        elif choice.lower() == 'quit':
+            exit(0)
         elif choice.lower() == 'look':
             look()
         elif choice.lower() == 'menu':
             menu()
+            small_handler(scenes.db[game_data['current_scene']]['name'], \
+                    "Command?")
         elif choice.lower() == 'go':
             go()
         elif choice.lower() == 'talk':
             talk()
+            small_handler(scenes.db[game_data['current_scene']]['name'], \
+                    "Command?")
         elif choice.lower() == 'use':
-            talk()
+            use()
+            small_handler(scenes.db[game_data['current_scene']]['name'], \
+                    "Command?")
         elif choice.lower() == 'hunt':
             hunt()
+            small_handler(scenes.db[game_data['current_scene']]['name'], \
+                    "Command?")
         elif choice.lower() == 'help':
             show_help()
+            small_handler(scenes.db[game_data['current_scene']]['name'], \
+                    "Command?")
 
 ### End game_loop(): The primary game loop ###
 
@@ -145,38 +229,42 @@ def new_game():
 
     global game_data
 
-    def ng_interactor(message):
+    def ng_interactor(message, prompt):
         os.system('clear')
         display("\n\n" + message)
-        return input("\n> ")
+        return input(prompt)
 
-    ng_interactor("Welcome to the wonderful and exciting world of Pokeymanz!")
+    ''' Just a quick default prompt '''
+    def_pr = "\n(ENTER to continue)\n> "
+
+    ng_interactor("Welcome to the wonderful and exciting world of Pokeymanz!", \
+            def_pr)
     ng_interactor("I'm Harold Treebranch, the Loco region's very own " \
-            + "Pokeyman professor!")
+            + "Pokeyman professor!", def_pr)
     ng_interactor("Our world is inhabited by fantastical creatures known " \
-            + "as Pokeymanz!")
-    ng_interactor("You're gonna be going on a grand adventure momentarily!")
-    ng_interactor("But first, let's take care of some housekeeping.")
+            + "as Pokeymanz!", def_pr)
+    ng_interactor("You're gonna be going on a grand adventure momentarily!", def_pr)
+    ng_interactor("But first, let's take care of some housekeeping.", def_pr)
 
     # Get player's name, double-check with them
     name = ''
     check = ''
 
     while check.lower() not in ['y', 'yes']:
-        name = ng_interactor("What's your name?")
-        check = ng_interactor(name + "? Is that right?\n\n(y/n)")
+        name = ng_interactor("What's your name?", "\n> ")
+        check = ng_interactor(name + "? Is that right?", "\n(y/n)\n> ")
         if check.lower() not in ['y', 'yes']:
-            ng_interactor("Let's try again.")
+            ng_interactor("Let's try again.", def_pr)
 
     game_data['player_name'] = name
 
     # End getting player's name #
 
-    ng_interactor("That... sure is something that you could call yourself.")
-    ng_interactor("But enough! Your Pokeyman adventure begins now!")
+    ng_interactor("That... sure is something that you could call yourself.", def_pr)
+    ng_interactor("But enough! Your Pokeyman adventure begins now!", def_pr)
 
     game_data['party'] = []
-    game_data['current_scene'] = scenes.beginning_town
+    game_data['current_scene'] = 'beginning_town'
 
     display("Curent status of game_data: " + str(game_data))
 
