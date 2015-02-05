@@ -171,7 +171,12 @@ def hunt():
 
 
 def show_help():
-    display("Help function")
+    print("\n\nAvailable Commands:\n")
+
+    commands = ['look', 'menu', 'go', 'talk', 'use', 'hunt', 'help', 'quit']
+
+    for each in commands:
+        print(each)
 
 ### End game functions ###
 
