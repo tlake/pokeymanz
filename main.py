@@ -193,33 +193,37 @@ def game_loop():
     while True:
         options = ['look', 'menu', 'go', 'talk', 'use', 'hunt', 'help', 'quit']
 
-        choice = input("\n> ")
+        get_choice = input("\n> ")
 
-        if choice.lower() not in options:
+        get_choice = get_choice.lower() + ' '
+
+        choice = get_choice.split(' ')
+
+        if choice[0] not in options:
             display("Sorry, that doesn't seem to be a valid option.")
-        elif choice.lower() == 'quit':
+        elif choice[0] == 'quit':
             exit(0)
-        elif choice.lower() == 'look':
+        elif choice[0] == 'look':
             look()
-        elif choice.lower() == 'menu':
+        elif choice[0] == 'menu':
             menu()
             small_handler(scenes.db[game_data['current_scene']]['name'], \
                     "Command?")
-        elif choice.lower() == 'go':
+        elif choice[0] == 'go':
             go()
-        elif choice.lower() == 'talk':
+        elif choice[0] == 'talk':
             talk()
             small_handler(scenes.db[game_data['current_scene']]['name'], \
                     "Command?")
-        elif choice.lower() == 'use':
+        elif choice[0] == 'use':
             use()
             small_handler(scenes.db[game_data['current_scene']]['name'], \
                     "Command?")
-        elif choice.lower() == 'hunt':
+        elif choice[0] == 'hunt':
             hunt()
             small_handler(scenes.db[game_data['current_scene']]['name'], \
                     "Command?")
-        elif choice.lower() == 'help':
+        elif choice[0] == 'help':
             show_help()
             small_handler(scenes.db[game_data['current_scene']]['name'], \
                     "Command?")
